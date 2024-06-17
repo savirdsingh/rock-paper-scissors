@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body> 
+    <div class = "buttons">
+    <button id = "rock" class = "btn">Rock</button>
+    <button id = "paper" class = "btn">Paper</button>
+    <button id = "scissors" class = "btn">Scissors</button>
+    </div>
     <script>
-
+        const body = document.querySelector('body')
        
         let hScore = 0
         let cScore = 0
+        const results = document.createElement("div")
+        const winner = document.createElement("div")
+       
        
        
         function getComputerChoice() {
@@ -21,40 +30,82 @@
             else if (compInput == 1) return "paper"
             else if (compInput == 2) return "scissors"
     }
-        function getHumanChoice() {
+       /* function getHumanChoice() {
             let input = prompt("What would you like to select").toLowerCase()
             if (input == "rock" || "paper" || "scissors") {
                 return input
             }
             else return "Error, please enter your choice again"
-        }
+        } */
         
-       function playGame() {
+       
         function playRound(h, c) {
-            h = hChoice;
-            c = cChoice;
+
+            
 
             if ((h == "rock" && c == "paper") || (c == "rock" && h == "scissors") || (c == "scissors" && h =="paper" )){
-                console.log(`Computer wins! You selected ${h} and the computer selected ${c}`) 
+                winner.textContent = `Computer wins! You selected ${h} and the computer selected ${c}`
                 cScore++
+                
+        
             }
             else if ((c =="rock" && h == "paper") || (h == "rock" && c == "scissors") || ("scissors" == 2 && c =="paper" )) {
-                console.log(`Human wins. You selected ${h} and the computer selected ${c}`)
+                winner.textContent = `Human wins. You selected ${h} and the computer selected ${c}`
                 hScore++
             }
             else if (c == h) {
-                console.log(`Tie. You and the computer selected ${h}`)
+                winner.textContent = `Tie. You and the computer selected ${h}`
             }
+                results.textContent = "Your score = " + hScore + ". Computer Score = " + cScore;
+                body.append(winner)
+                body.append(results)
+                end()
         }
+        
+            
+             
+                
+        const buttons = document.querySelectorAll('.btn');
+        function playGame() {
+            buttons.forEach((button) => { 
+        
+        button.addEventListener("click", clickingButton);
 
-            for (let i = 0; i < 5; i++) {
-                hChoice = getHumanChoice()
-                cChoice = getComputerChoice()
-                playRound(hChoice, cChoice)
+    });
+        }
+        function clickingButton(event) {
+            playRound(event.target.id, getComputerChoice());
+        }
+       
+        function end() {
+            if (hScore == 5) {
+                results.textContent = "GAME OVER. YOU WIN"
+                playAgain()
+            }
+            if (cScore == 5) {
+                results.textContent = "GAME OVER. YOU LOSE"
+                playAgain()
             }
         }
+       
+        function playAgain() {
+            hScore = 0;
+            cScore = 0;
+            const playAgain = document.createElement("button")
+            body.append(playAgain)
+            playAgain.textContent = "Play Again"
+            playAgain.addEventListener("click", () => {
+                results.textContent = "";
+                winner.textContent = "";
+                body.removeChild(playAgain)
+                playGame()
+            })
+        }
+       
+
         playGame()
         
+
     </script>
     
 </body>
