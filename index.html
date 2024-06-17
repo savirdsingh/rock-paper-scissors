@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+       
+        let hScore = 0
+        let cScore = 0
+       
+       
+        function getComputerChoice() {
+            //rock = 0, paper = 1, scissor = 2
+            compInput =  Math.floor(Math.random()*3);
+        
+            if (compInput == 0) return "rock"
+            else if (compInput == 1) return "paper"
+            else if (compInput == 2) return "scissors"
+    }
+        function getHumanChoice() {
+            let input = prompt("What would you like to select").toLowerCase()
+            if (input == "rock" || "paper" || "scissors") {
+                return input
+            }
+            else return "Error, please enter your choice again"
+        }
+        
+       function playGame() {
+        function playRound(h, c) {
+            h = hChoice;
+            c = cChoice;
+
+            if ((h == "rock" && c == "paper") || (c == "rock" && h == "scissors") || (c == "scissors" && h =="paper" )){
+                console.log(`Computer wins! You selected ${h} and the computer selected ${c}`) 
+                cScore++
+            }
+            else if ((c =="rock" && h == "paper") || (h == "rock" && c == "scissors") || ("scissors" == 2 && c =="paper" )) {
+                console.log(`Human wins. You selected ${h} and the computer selected ${c}`)
+                hScore++
+            }
+            else if (c == h) {
+                console.log(`Tie. You and the computer selected ${h}`)
+            }
+        }
+
+            for (let i = 0; i < 5; i++) {
+                hChoice = getHumanChoice()
+                cChoice = getComputerChoice()
+                playRound(hChoice, cChoice)
+            }
+        }
+        playGame()
+        
+    </script>
+    
+</body>
+</html>
